@@ -1,0 +1,61 @@
+Netflex Eureka:
+=======================
+What is Eureka?
+* In simple word Eureka is a service Registry or we can say it is an embedded server provided 
+  by Netflix third party which integrate with spring framework.
+* Main purpose to use Eureka is Micro service Registration and Discovery with Spring Cloud
+  and Netflix's Eureka
+
+What is the use of Eureka?
+========================
+* Normally in Micro Service Architecture Design we are developing separate Services and exposing
+ each API as service Endpoint and whenever we required to access other services in simple we are
+ accessing it  as a Rest client using third party API either Rest Template or Client Builder
+
+
+* As per this diagram we can see there we have 3 micro services and each are interlink with
+  each other to perform business operation
+
+* Here rest client accessing 3 services using Rest Template and passing the URL as per image
+* Think is my service have only one end point?
+* No there may be chance my service can have n number of Endpoint So who will remember all the
+  end point URL to access their features? To overcome this issue Netflix team came up with Eureka
+  concept, let’s see now how they reduces developers burden.
+* As I already mention Eureka is Service Registry, with a great features i.e. just register your
+  all micro services with Eureka server then no need to call each service by passing exact URL
+  like host name, port just give your service name with which you registered with Eureka server
+  and at end just add endpoint URL
+
+
+* Normally we are using below URL to access Payment endpoint
+
+	http://localhost:8083/service3/payment    
+
+* Instead of passing this URL from client just pass like below you no need to bother about 
+  what’s the port and host name Eureka will take care of this he will auto route it. If that
+  service is registered with Eureka
+	
+	http://serviceName/service3/payment
+
+ 
+* Assume our service is Payment-Service So Eureka will expect the URL to pass to consume rest
+  from client like below
+	
+	http://PaymentService/service3/payment
+
+ 
+** How Eureka will identify which port this payment service deployed and what is the host info?
+=> As we are registering microservice in Eureka server so Eureka internally keeping one instance
+   of our service, so based on service name it will go to that particular Service and search the
+   last append end point URL Then it will delegate Request to that service
+
+* So see the above diagram as I registered my all services in Eureka,So I can now access them 
+  like below
+
+=> Product Service: http://PRODUCT-SERVICE/product
+
+=> Order Service: http://ORDER-SERVICE/product
+
+=> Payment Service: http://PAYMENT-SERVICE/product
+
+ 
